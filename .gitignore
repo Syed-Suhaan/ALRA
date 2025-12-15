@@ -1,0 +1,17 @@
+# Environment variables
+.env
+
+# Virtual Environment
+venv/
+.venv/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Local FAISS index (should be generated at runtime or persisted elsewhere)
+faiss_index/
+temp_pdfs/
+
+# Streamlit
+.streamlit/
