@@ -24,10 +24,8 @@ def search_with_confidence(vector_store, query, k=5):
     """
     Search vector db and calculate confidence score.
     """
-    # FAISS returns (doc, score) where score is L2 distance
     results_with_score = vector_store.similarity_search_with_score(query, k=k)
     
-    # Extract distances and docs
     distances = []
     docs = []
     for doc, score in results_with_score:
@@ -36,8 +34,7 @@ def search_with_confidence(vector_store, query, k=5):
         
     confidence_score = calculate_confidence_score(distances, query=query, docs=docs)
     
-    # Prepare context text
-    context_text = "\\n\\n".join([f"[Source: {doc.metadata.get('source', 'Unknown')} page {doc.metadata.get('page', 'Unknown')}]\\n{doc.page_content}" for doc, score in results_with_score])
+    context_text = "\n\n".join([f"[Source: {doc.metadata.get('source', 'Unknown')} page {doc.metadata.get('page', 'Unknown')}]\n{doc.page_content}" for doc, score in results_with_score])
     
     return context_text, confidence_score, results_with_score
 
@@ -46,7 +43,6 @@ def get_answer(vector_store, query):
     
     context, confidence, raw_results = search_with_confidence(vector_store, query)
     
-    # Define Prompt
     system_prompt = """You are a Research Analysis Agent.
 context_confidence_score: {confidence_score:.2f}%
 
@@ -67,7 +63,6 @@ Question:
         template=system_prompt
     )
     
-    # Use LCEL
     chain = prompt | llm | StrOutputParser()
     response = chain.invoke({
         "confidence_score": confidence, 

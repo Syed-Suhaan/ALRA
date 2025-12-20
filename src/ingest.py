@@ -20,7 +20,6 @@ def load_and_process_pdfs(pdf_files):
         try:
             loader = PyMuPDFLoader(temp_path)
             docs = loader.load()
-            # Add metadata if missing
             for doc in docs:
                 if "source" not in doc.metadata:
                     doc.metadata["source"] = pdf_file.name
@@ -28,18 +27,14 @@ def load_and_process_pdfs(pdf_files):
         except Exception as e:
             print(f"Error loading {pdf_file.name}: {e}")
         finally:
-            # Cleanup immediately per file if desired, or at end
-            # We'll cleanup at end for safety
             pass
             
-    # Cleanup temp files
     try:
         for f in os.listdir(temp_dir):
             os.remove(os.path.join(temp_dir, f))
     except Exception:
         pass
     
-    # Chunking
     text_splitter = RecursiveCharacterTextSplitter(
         chunk_size=1000,
         chunk_overlap=200
@@ -57,7 +52,6 @@ def create_vector_db(chunks):
     embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
     vector_store = FAISS.from_documents(chunks, embeddings)
     
-    # Save locally
     vector_store.save_local("faiss_index")
     return vector_store
 
