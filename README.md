@@ -10,6 +10,21 @@ ALRA is an AI-powered research assistant designed to automate literature reviews
 -   **Confidence Scoring**: Custom metric to gauge the reliability of generated answers.
 -   **Benchmark Dashboard**: Built-in tool to evaluate retrieval performance.
 
+## ALRA 2.0 Upgrades (Research-Grade Agentic RAG)
+
+ALRA 2.0 transforms the system from a basic RAG pipeline to an advanced research agent based on the **CLARA** (Composite Latent-Augmented Retrieval & Analysis) framework.
+
+### New Features:
+- **🧠 Query Reasoning**: LLM-based query expansion and decomposition to handle complex research questions.
+- **🔍 Semantic Tagging**: Intelligent classification of PDF chunks into sections (Methodology, Results, etc.).
+- **📊 Composite Grounding (Confidence 2.0)**: Multi-signal evaluation of answer accuracy.
+- **📑 Multi-Paper Synthesis**: Generate structured comparison tables across multiple papers.
+- **📈 Performance Dashboard**: Visual analytics and interaction logging.
+
+### Upgrades Gallery
+![ALRA 2.0 Dashboard](screenshots/Screenshot%202026-02-19%20191218.png)
+![Synthesis Mode](screenshots/Screenshot%202026-02-19%20191238.png)
+
 ## Setup
 
 1.  **Clone the repository**:
