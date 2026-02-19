@@ -1,14 +1,7 @@
 import numpy as np
 
 def calculate_confidence_score(distances, query=None, docs=None):
-    """
-    Convert FAISS L2 distances to a percentage confidence score.
-    Logic:
-    1. Convert L2 distance to similarity: similarity = 1 / (1 + distance)
-    2. Normalize to 0-100% scale.
-    3. Take weighted average of top results.
-    4. Apply Boost if exact query (or huge part) is found in text.
-    """
+   
     if not distances or len(distances) == 0:
         return 0.0
 

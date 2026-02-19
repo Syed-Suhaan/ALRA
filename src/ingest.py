@@ -1,12 +1,15 @@
 import os
+import shutil
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_community.vectorstores import FAISS
 from langchain_community.document_loaders import PyMuPDFLoader
+from src.semantic_extractor import extract_semantic_sections
 
 def load_and_process_pdfs(pdf_files):
     """
     Load PDFs using PyMuPDF (faster) and return chunks.
+    Now includes Semantic Extraction step.
     """
     documents = []
     temp_dir = "temp_pdfs"
@@ -30,8 +33,9 @@ def load_and_process_pdfs(pdf_files):
             pass
             
     try:
-        for f in os.listdir(temp_dir):
-            os.remove(os.path.join(temp_dir, f))
+        if os.path.exists(temp_dir):
+            for f in os.listdir(temp_dir):
+                os.remove(os.path.join(temp_dir, f))
     except Exception:
         pass
     
@@ -40,11 +44,17 @@ def load_and_process_pdfs(pdf_files):
         chunk_overlap=200
     )
     chunks = text_splitter.split_documents(documents)
+    
+    # --- Semantic Extraction Step ---
+    print(f"Applying semantic extraction to {len(chunks)} chunks...")
+    chunks = extract_semantic_sections(chunks)
+    
     return chunks
 
 def create_vector_db(chunks):
     """
     Create specific FAISS index from chunks and save it.
+    Chunks now carry semantic metadata (section_type, paper_title).
     """
     if not chunks:
         return None

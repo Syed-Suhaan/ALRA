@@ -7,5 +7,6 @@ faiss-cpu
 pymupdf
 python-dotenv
 numpy
+pandas
 sentence-transformers
 streamlit-shadcn-ui
