@@ -14,6 +14,8 @@ ALRA is an AI-powered research assistant designed to automate literature reviews
 
 ALRA 2.0 transforms the system from a basic RAG pipeline to an advanced research agent based on the **CLARA** (Composite Latent-Augmented Retrieval & Analysis) framework.
 
+**Research Source**: [CLaRa: Bridging Retrieval and Generation with Continuous Latent Reasoning (Apple & University of Edinburgh)](https://arxiv.org/abs/2406.00768)
+
 ### New Features:
 - **🧠 Query Reasoning**: LLM-based query expansion and decomposition to handle complex research questions.
 - **🔍 Semantic Tagging**: Intelligent classification of PDF chunks into sections (Methodology, Results, etc.).
